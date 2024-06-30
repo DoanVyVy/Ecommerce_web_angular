@@ -1,0 +1,50 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/my-profile">Customer</a></li>
+    <li class="breadcrumb-item">
+      <a routerLink="/customer-dashboard">Shopping</a>
+    </li>
+  </ol>
+</nav>
+
+<!-- Search form -->
+<form class="d-flex mb-3" (submit)="search(); $event.preventDefault()">
+  <input
+    [(ngModel)]="searchString"
+    name="searchString"
+    class="form-control me-2"
+    type="search"
+    placeholder="Search products"
+    aria-label="Search"
+  />
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+<div class="row">
+  <div class="col-sm-4 product" *ngFor="let product of all_products">
+    <div class="card">
+      <img
+        src="{{ product.uploadPhoto }}"
+        class="card-img-top"
+        alt="{{ product.name }}"
+      />
+      <div class="card-body">
+        <h4 class="card-title">{{ product.name }}</h4>
+        <p>
+          <span class="float-left"
+            ><strong>MRP</strong>: <del>{{ product.mrp }}</del></span
+          >
+          <span class="float-right"><strong>DP</strong>: {{ product.dp }}</span>
+        </p>
+        <br />
+        <p class="card-text product-desc">{{ product.productDesc }}</p>
+        <a class="btn btn-primary float-left" (click)="addToCart(product.id)"
+          >Add to Cart</a
+        >
+        <a class="btn btn-warning float-right" (click)="buyProduct(product.id)"
+          >Buy Now</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<section class="h-100 h-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px">
+          <div class="card-body p-4">
+            <h1 class="fw-bold mb-4">Shopping Cart</h1>
+            <hr class="my-4" />
+
+            <!-- Cart Items -->
+            <div *ngFor="let item of cartItems" class="mb-4 border-bottom pb-3">
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <img [src]="item.product.uploadPhoto" class="img-fluid rounded-3" alt="Product" />
+                </div>
+                <div class="col-md-5">
+                  <h6 class="text-muted mb-1">Shirt</h6>
+                  <h6 class="mb-0">{{ item.product.name }}</h6>
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <button class="btn btn-outline-secondary" type="button" (click)="updateQuantity(item, item.quantity - 1)">
+                      -
+                    </button>
+                    <span class="form-control text-center">{{ item.quantity }}</span>
+                    <button class="btn btn-outline-secondary" type="button" (click)="updateQuantity(item, item.quantity + 1)">
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-2 text-end">
+                  <h6 class="mb-0">€ {{ item.product.dp * item.quantity }}</h6>
+                </div>
+              </div>
+              <div class="row mt-3 align-items-center">
+                <div class="col text-end">
+                  <a class="text-muted" (click)="removeFromCart(item.productId)">
+                    <i class="fa fa-times"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- End Cart Items -->
+
+            <div class="row mt-4">
+              <div class="col">
+                <a class="text-body" routerLink="/customer-dashboard">
+                  <i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="card bg-body-tertiary">
+          <div class="card-body p-4">
+            <h3 class="fw-bold mb-4">Summary</h3>
+            <hr class="my-4" />
+
+            <div class="d-flex justify-content-between mb-3">
+              <h6 class="text-uppercase">Items {{ cartItems.length }}</h6>
+              <h6>€ {{ subtotal }}</h6>
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="d-flex justify-content-between mb-4">
+              <h5 class="text-uppercase">Total Price</h5>
+              <h5>€ {{ totalIncludingTaxes }}</h5>
+            </div>
+
+            <button type="button" class="btn btn-dark btn-block" [disabled]="cartItems.length === 0" (click)="checkout()">
+              Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
